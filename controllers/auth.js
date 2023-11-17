@@ -26,7 +26,6 @@ exports.register = async (req, res, next) => {
 
   redisClient.publish(channel, message).then((res) => {
     logger.info("message published to " + channel + ": " + message);
-    redisClient.quit();
   });
 
   return res.status(200).json({
