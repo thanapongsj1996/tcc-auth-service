@@ -23,9 +23,9 @@ jobs:
         run: | 
             npm --version
             node --version
-            
+
       - name: Run Node
-        run: nom run dev
+        run: npm run dev
 
       # - name: Get Git CommitId  
       #   run: |
