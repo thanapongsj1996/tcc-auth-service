@@ -3,7 +3,7 @@ const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = "secret";
+opts.secretOrKey = "secret"; //put in configmap
 
 passport.use(
   new JwtStrategy(opts, async function (jwtPayload, done) {
