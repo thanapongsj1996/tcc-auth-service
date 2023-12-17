@@ -1,10 +1,11 @@
-name: Build Service auth
+name: Push to DockerHub and Update K8s Deployment
+run-name: ${{ github.actor }} is deploying this app 🚀
 on:
   push:
-    branches: [main]
-
+    branches:
+      - develop
 jobs:
-  build:
+  push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     env:
@@ -32,7 +33,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ github.sha }},latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/tcc-auth-service:${{ github.sha }},${{ steps.meta.outputs.tags }},${{ secrets.DOCKER_USERNAME }}/tcc-auth-service:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       # - name: Update K8s Deployment
@@ -57,12 +58,12 @@ jobs:
       #     service_account_key: ${{ secrets.GKE_SA_KEY }}
       #     project_id: ${{ secrets.GKE_PROJECT }}
 
-      # Configure Docker to use the gcloud command-line tool as a credential
-      # helper for authentication
+      # # Configure Docker to use the gcloud command-line tool as a credential
+      # # helper for authentication
       # - run: |-
       #     gcloud --quiet auth configure-docker
 
-      # Get the GKE credentials so we can deploy to the cluster
+      # # Get the GKE credentials so we can deploy to the cluster
       # - name: Set up GKE credentials
       #   uses: google-github-actions/get-gke-credentials@v0
       #   with:
