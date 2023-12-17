@@ -13,11 +13,11 @@ spec:
         app: auth-api
     spec:
       containers:
-      - name: auth-api
-        image: thanapongsj/tcc-auth-service:latest
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: 3000
+        - name: auth-api
+          image: thanapongsj/tcc-auth-service:229ebde71c4aeb7deb76602422ead80edbc51a95
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3000
