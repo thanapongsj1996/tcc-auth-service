@@ -46,8 +46,8 @@ jobs:
           yq eval ".spec.template.spec.containers[0].image |= \"${image_with_new_tag}\"" -i ./manifest/dev/deployment.yaml
 
           # Commit the changes
-          git config --local user.email "suchawadeenuna@gmail.com"
-          git config --local user.name "NNplatform"
+          # git config --local user.email "suchawadeenuna@gmail.com"
+          # git config --local user.name "NNplatform"
           git checkout main
           git add ./manifest/dev/deployment.yaml
           git commit -m "Update image to ${image_with_new_tag}"
