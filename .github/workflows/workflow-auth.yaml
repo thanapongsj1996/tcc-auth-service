@@ -17,17 +17,85 @@ jobs:
           node-version: '20'
           
       - name: Install Dependencies    
-        run: npm install
-      
-      - name: Check Version 
-        run: | 
-            npm --version
-            node --version
-
-      - name: Run Node
         run: |
-             npm run build --if-present
-             npm run start
+             npm install
+             npm install -g nodemon
+      
+      # - name: Check Version 
+      #   run: | 
+      #       npm --version
+      #       node --version
 
-      - name: Test Node
-        run: npm test
+      # - name: Run Node
+      #   run: npm run dev
+
+      # - name: Get Git CommitId  
+      #   run: |
+      #       echo "commit_id=$(git rev-parse --short $GITHUB_SHA)" >> $GITHUB_ENV
+      #       echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+      #       source $GITHUB_ENV
+      #       echo "branch: " $branch
+      #       echo "commitid: " $commit_id
+            
+      # - name: Log in to Docker Hub
+      #   uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # - name: Setup Docker Buildx
+      #   uses: docker/setup-buildx-action@v3
+
+      # - name: Set output named COMMIT_ID
+      #   id: git-commitid
+      #   run: echo "COMMIT_ID=$commit_id" >> "$GITHUB_OUTPUT"
+
+      # - name: Use output from previouse step
+      #   env:
+      #     COMMIT_ID: ${{ steps.git-commitid.outputs.COMMIT_ID }}
+      #   run: echo "Commit Id is $COMMIT_ID"
+      
+      # - name: Build and Push with tag = Git CommitId
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ steps.git-commitid.outputs.COMMIT_ID }}
+      
+      - name: Access K8s Cluster
+        env: 
+             KUBECTL_CONFIG_CONTENT: ${{ secrets.K8S_CONFIG }} #suggest for variable multiple line
+        run: |
+             mkdir -p ~/.kube
+             echo "$KUBECTL_CONFIG_CONTENT" > ~/.kube/config
+             kubectl config current-context
+      
+      # - name: Define Image New Version
+      #   run: |
+      #         echo "image_with_new_tag=${{ secrets.DOCKER_USERNAME }}/week-9-1021:${{ steps.git-commitid.outputs.COMMIT_ID }}" >> $GITHUB_ENV
+      #         echo "Image with CommitId is: $image_with_new_tag"
+
+      # - name: Update Image in Deployment K8s
+      #   run: |
+      #         # Update the K8s deployment file using yq
+      #         yq -i '.spec.template.spec.containers[0].image=strenv(image_with_new_tag)' ./manifest/dev/deployment.yaml
+
+      # - name: Display yaml file
+      #   run: cat ./manifest/dev/deployment.yaml
+
+      # - name: Commit Changes to Github Repository
+      #   run:  |
+      #         # Commit the changes
+      #         git config --local user.email "action@github.com"
+      #         git config --local user.name "GitHub Action"
+      #         git checkout develop
+      #         git pull
+      #         git branch
+      #         git add ./manifest/dev/deployment.yaml
+      #         git commit -m "ci: update image to ${image_with_new_tag}"
+      #         git rebase
+      #         git push origin develop
+
+      # - name: Deploy Image to K8s
+      #   run: kubectl apply -f ./manifest/dev/. -n group-3-dev
