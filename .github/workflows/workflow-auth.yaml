@@ -61,10 +61,9 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ steps.git-commitid.outputs.COMMIT_ID }},${{ secrets.DOCKER_USERNAME }}/auth-service:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ github.sha }},${{ secrets.DOCKER_USERNAME }}/auth-service:latest
+         #tags: ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ steps.git-commitid.outputs.COMMIT_ID }},${{ secrets.DOCKER_USERNAME }}/auth-service:latest
 
-  
-      
       - name: Access K8s Cluster
         env: 
              KUBECTL_CONFIG_CONTENT: ${{ secrets.K8S_CONFIG }} #suggest for variable multiple line
