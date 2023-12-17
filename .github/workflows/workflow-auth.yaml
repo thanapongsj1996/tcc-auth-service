@@ -21,13 +21,13 @@ jobs:
              npm install
              npm install -g nodemon
       
-      - name: Check Version 
-        run: | 
-            npm --version
-            node --version
+      # - name: Check Version 
+      #   run: | 
+      #       npm --version
+      #       node --version
 
-      - name: Run Node
-        run: npm run dev
+      # - name: Run Node
+      #   run: npm run dev
 
       # - name: Get Git CommitId  
       #   run: |
@@ -63,13 +63,13 @@ jobs:
       #     push: true
       #     tags: ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ steps.git-commitid.outputs.COMMIT_ID }}
       
-      # - name: Access K8s Cluster
-      #   env: 
-      #        KUBECTL_CONFIG_CONTENT: ${{ secrets.KUBE_CONFIG }} #suggest for variable multiple line
-      #   run: |
-      #        mkdir -p ~/.kube
-      #        echo "$KUBECTL_CONFIG_CONTENT" > ~/.kube/config
-      #        kubectl config current-context
+      - name: Access K8s Cluster
+        env: 
+             KUBECTL_CONFIG_CONTENT: ${{ secrets.K8S_CONFIG }} #suggest for variable multiple line
+        run: |
+             mkdir -p ~/.kube
+             echo "$KUBECTL_CONFIG_CONTENT" > ~/.kube/config
+             kubectl config current-context
       
       # - name: Define Image New Version
       #   run: |
