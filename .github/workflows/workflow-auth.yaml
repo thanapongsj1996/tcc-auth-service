@@ -74,5 +74,6 @@ jobs:
           credentials: ${{ secrets.GKE_SA_KEY }}
 
       - name: Deploy the Docker image to the GKE cluster
-        run: |-
+        run: |
+          kubectl get ns
           kubectl apply -f ./manifest/dev

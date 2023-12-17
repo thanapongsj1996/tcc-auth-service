@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: auth-api
-        image: tcc-group-3
+        image: thanapongs/tcc-auth-service:latest
         resources:
           limits:
             memory: "128Mi"
