@@ -56,12 +56,14 @@ jobs:
         run: echo "Commit Id is $COMMIT_ID"
       
       - name: Build and Push with tag = Git CommitId
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ steps.git-commitid.outputs.COMMIT_ID }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ steps.git-commitid.outputs.COMMIT_ID }},${{ secrets.DOCKER_USERNAME }}/auth-service:latest
+
+  
       
       - name: Access K8s Cluster
         env: 
