@@ -38,6 +38,7 @@ jobs:
 
       - name: Update K8s Deployment
         run: |
+          echo "commitId: ${{ github.sha }}"
           # Generate a new image tag using the environment variable
           image_with_new_tag="${{ secrets.DOCKER_USERNAME }}/tcc-auth-service:${{ github.sha }}"
 
@@ -47,10 +48,10 @@ jobs:
           # Commit the changes
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git checkout develop
+          git checkout main
           git add ./manifest/dev/deployment.yaml
           git commit -m "Update image to ${image_with_new_tag}"
-          git push origin develop
+          git push origin main
 
       - name: Setup gcloud CLI
         uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
