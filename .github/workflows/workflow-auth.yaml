@@ -32,7 +32,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/tcc-auth-service:${{ github.sha }},${{ steps.meta.outputs.tags }},${{ secrets.DOCKER_USERNAME }}/tcc-auth-service:latest
+          tags: ${{ github.sha }},latest
           labels: ${{ steps.meta.outputs.labels }}
 
       # - name: Update K8s Deployment
