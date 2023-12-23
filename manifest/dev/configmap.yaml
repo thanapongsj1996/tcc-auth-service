@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-service-configmap
+  namespace: dev
+data:
+  POSTGRES_DB: tcc_pg_i0hc
+  POSTGRES_DB: tcc_pg_i0hc
+  POSTGRES_USER: tcc_pg_i0hc_user
+  POSTGRES_PASSWORD: WR9hAg43eCDJiSX1KDbvhuMZhlm6BQcj
+  POSTGRES_HOST: dpg-clukqred3nmc73855lpg-a.singapore-postgres.render.com
+  POSTGRES_PORT: "5432"
+  REDIS_URL: "rediss://red-clul0hda73kc73bi4s20:mPRJeAwqmPkNWrA0t7m85Sq2dvCHfmi7@singapore-redis.render.com:6379"
+  JWT_KEY: "secret"
+
