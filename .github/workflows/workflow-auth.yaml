@@ -70,7 +70,7 @@ jobs:
         with:
           credentials_json: "${{ secrets.GKE_SA_KEY }}"
 
-       - name: Deploy the Docker image to the GKE cluster
+      - name: Deploy the Docker image to the GKE cluster
         run: |-
           kubectl apply -f ./manifest/dev/deployment.yaml
 
