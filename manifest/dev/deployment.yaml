@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: auth-service
-          image: thanapongsj/tcc-auth-service:d9109968f1855b7fdaa53a12fd5f1278b5bac6a7
+          image: thanapongsj/tcc-auth-service:e9bd7b4e0ceacd921a122d2e735b4c59eddf7602
           resources:
             limits:
               memory: "64Mi"
