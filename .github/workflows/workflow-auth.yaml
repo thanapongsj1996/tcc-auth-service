@@ -72,7 +72,6 @@ jobs:
 
       - name: Deploy the Docker image to the GKE cluster
         run: |
-          kubectl get ns
           kubectl apply -f ./manifest/dev/deployment.yaml
 
       # - name: Access K8s Cluster
