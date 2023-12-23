@@ -16,9 +16,8 @@ spec:
       containers:
         - name: auth-service
           image: thanapongsj/tcc-auth-service:e9bd7b4e0ceacd921a122d2e735b4c59eddf7602
-          resources:
-            limits:
-              memory: "64Mi"
-              cpu: "100m"
           ports:
             - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: auth-service-configmap

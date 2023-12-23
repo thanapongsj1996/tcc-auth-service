@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is deploying this app 🚀
 on:
   push:
     branches:
-      - main
+      # - main
 jobs:
   build:
     name: Push Docker image to Docker Hub
