@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-api
+  name: auth-service
   namespace: dev
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: auth-api
+      app: auth-service
   template:
     metadata:
       labels:
-        app: auth-api
+        app: auth-service
     spec:
       containers:
-      - name: auth-api
-        image: tcc-group-3
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: 3000
+        - name: auth-service
+          image: thanapongsj/tcc-auth-service:d9109968f1855b7fdaa53a12fd5f1278b5bac6a7
+          resources:
+            limits:
+              memory: "64Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 3000
